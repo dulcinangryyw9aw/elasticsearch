@@ -43,7 +43,8 @@ import java.io.IOException;
 public class TransportForceMergeAction extends TransportBroadcastByNodeAction<
     ForceMergeRequest,
     BroadcastResponse,
-    TransportBroadcastByNodeAction.EmptyResult> {
+    TransportBroadcastByNodeAction.EmptyResult,
+    Void> {
 
     private static final Logger logger = LogManager.getLogger(TransportForceMergeAction.class);
 
@@ -99,7 +100,8 @@ public class TransportForceMergeAction extends TransportBroadcastByNodeAction<
         ForceMergeRequest request,
         ShardRouting shardRouting,
         Task task,
-        ActionListener<TransportBroadcastByNodeAction.EmptyResult> listener
+        Void nodeContext,
+        ActionListener<EmptyResult> listener
     ) {
         assert (task instanceof CancellableTask) == false; // TODO: add cancellation handling here once the task supports it
         SubscribableListener.<IndexShard>newForked(l -> {
